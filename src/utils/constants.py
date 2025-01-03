@@ -5,15 +5,8 @@ This file contains some constants methods and features to easier your ML develop
 
 Some classes here:
     - Logs
-'''
-
-'''
-========================== CONSTANTS ==========================
-
-This file contains some constants methods and features to easier your ML developement
-
-Some classes here:
-    - Logs
+    - Paths
+    - MetricsMonitor
 '''
 
 import os
@@ -91,4 +84,4 @@ class MetricsMonitor:
         vif_data["feature"] = dataframe.columns
         vif_data["VIF"] = [variance_inflation_factor(dataframe.values, i) for i in range(dataframe.shape[1])]
         return vif_data
-    
+
