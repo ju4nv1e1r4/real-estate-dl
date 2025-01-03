@@ -1,0 +1,28 @@
+services:
+  mlflow-server:
+    image: ghcr.io/mlflow/mlflow:latest  
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlflow:/mlflow
+    environment:
+      - MLFLOW_HOME=/mlflow
+    command: mlflow ui --host 0.0.0.0 --port 5000  # Iniciar a interface web MLflow na porta 5000
+
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}  # Variável de ambiente para senha
+      - GF_DATASOURCE_PROMETHEUS_URL=http://prometheus:9090
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
