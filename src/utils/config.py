@@ -10,18 +10,18 @@ Some classes here:
 '''
 
 import os
+import logging
 
 class Logs:
     @staticmethod
     def config_logging(log_file=None, log_level=logging.INFO):
         '''
-        Configures logging and structlog.
+        Configura o logging e o structlog.
         
-        :param log_file: Path to the log file (optional).
-        :param log_level: Logging level (default is INFO).
+        :param log_file: Caminho do arquivo de log (opcional).
+        :param log_level: Nível de log (padrão é INFO).
         '''
         import structlog
-        import logging
         from logging import StreamHandler
 
         handlers = [StreamHandler()]
@@ -53,16 +53,16 @@ class Paths:
     @staticmethod
     def ensure_dirs_exist():
         '''
-        Creates required directories if they do not exist.
+        Cria os diretórios necessários caso eles não existam.
         '''
         for path in [Paths.DATA_DIR, Paths.MODELS_DIR, Paths.LOGS_DIR]:
             os.makedirs(path, exist_ok=True)
 
-class MetricsMonitor:
+class Monitor:
     @staticmethod
     def outliers_analysis(dataframe):
         '''
-        Create outliers analysis, if applicable
+        Realiza uma análise de outliers, se aplicável.
         '''
         import numpy as np
         import scipy.stats as stats
@@ -75,7 +75,7 @@ class MetricsMonitor:
     @staticmethod
     def multicolinearity_analysis(dataframe):
         '''
-        Create multicolinearity analysis, if applicable
+        Realiza uma análise de multicolinearidade, se aplicável.
         '''
         import pandas as pd
         from statsmodels.stats.outliers_influence import variance_inflation_factor
@@ -84,4 +84,3 @@ class MetricsMonitor:
         vif_data["feature"] = dataframe.columns
         vif_data["VIF"] = [variance_inflation_factor(dataframe.values, i) for i in range(dataframe.shape[1])]
         return vif_data
-
